@@ -6,6 +6,17 @@ def hasAdjacentSymbol(i, j):
         return True
     return False
 
+coords = [
+    (-1, -1),
+    (-1, 0),
+    (-1, 1),
+    (0, -1),
+    (0, 1),
+    (1, -1),
+    (1, 0),
+    (1, 1)
+]
+
 sum = 0
 for i in range(len(inputs)):
     inputs[i] = inputs[i].strip()
@@ -14,28 +25,12 @@ for i in range(len(inputs)):
     for j in range(len(inputs[i])):
         if inputs[i][j].isdigit():
             curr += inputs[i][j]
-            if i > 0:
-                if hasAdjacentSymbol(i - 1, j):
-                    isvalid = True
-                if j > 0:
-                    if hasAdjacentSymbol(i - 1, j - 1):
+            for x, y in coords:
+                r = i + x
+                c = j + y
+                if (r >= 0 and r < len(inputs) and c >= 0 and c < len(inputs[i])):
+                    if (hasAdjacentSymbol(r, c)):
                         isvalid = True
-                if j < len(inputs[i]) - 1:
-                    if hasAdjacentSymbol(i - 1, j + 1):
-                        isvalid = True
-            if i < len(inputs) - 1:
-                if hasAdjacentSymbol(i + 1, j):
-                    isvalid = True
-                if j > 0:
-                    if (hasAdjacentSymbol(i + 1, j - 1)):
-                        isvalid = True
-                if j < len(inputs[i]) - 1:
-                    if hasAdjacentSymbol(i + 1, j + 1):
-                        isvalid = True
-            if j > 0 and hasAdjacentSymbol(i, j - 1):
-                isvalid = True
-            if j < len(inputs[i]) - 1 and hasAdjacentSymbol(i, j + 1):
-                isvalid = True
         else:
             if isvalid:
                 sum += int(curr)
